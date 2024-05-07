@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "notes-mobile-app",
+    "slug": "notes-mobile-app",
+    "scheme": "notes-mobile-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.wnr.minotes"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.wnr.minotes",
+      "googleServicesFile": "google-services.json"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-secure-store",
+      "expo-system-ui",
+      "@react-native-firebase/app",
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "988870202597596",
+          "clientToken": "3c7568939d08b785b0e6d53fcdb2c981",
+          "displayName": "MiNotes"
+        }
+      ],
+      "expo-secure-store"
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "12d14cde-2cbb-4368-afe2-9c795783145e"
+      }
+    }
+  }
+}
