@@ -14,8 +14,9 @@ export const useGlobalContext = () => {
 };
 
 export const GlobalProvider = ({ children }) => {
-  const { session, setSession, isLoading } = useStorageState("session");
+  const { rawSession, setSession, isLoading } = useStorageState("session");
   const [loadingGlobal, setLoadingGlobal] = useState(false);
+  const session = JSON.parse(rawSession);
   return (
     <GlobalContext.Provider
       value={{
