@@ -1,5 +1,8 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
+# env
+.env
+
 # dependencies
 node_modules/
 
@@ -8,6 +11,8 @@ node_modules/
 dist/
 web-build/
 
+google-services.json
+
 # Native
 *.orig.*
 *.jks
@@ -15,6 +20,7 @@ web-build/
 *.p12
 *.key
 *.mobileprovision
+android/
 
 # Metro
 .metro-health-check*

@@ -25,7 +25,7 @@ export const GlobalProvider = ({ children }) => {
         setSession,
         loadingGlobal,
         setLoadingGlobal,
-        signOut: async () => {
+        signOut: () => {
           setLoadingGlobal(true);
           try{
             setSession(null);

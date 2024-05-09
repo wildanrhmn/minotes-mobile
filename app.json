@@ -17,7 +17,17 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.wnr.minotes"
+      "bundleIdentifier": "com.wnr.minotes",
+      "infoPlist": {
+        "SKAdNetworkItems": [
+          {
+            "SKAdNetworkIdentifier": "v9wttpbfk9.skadnetwork"
+          },
+          {
+            "SKAdNetworkIdentifier": "n38lu8286q.skadnetwork"
+          }
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -25,7 +35,9 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.wnr.minotes",
-      "googleServicesFile": "google-services.json"
+      "permissions": [
+        "android.permission.INTERNET"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,22 +49,26 @@
       "expo-system-ui",
       "@react-native-firebase/app",
       [
-        "react-native-fbsdk-next",
+        "expo-build-properties", 
         {
-          "appID": "988870202597596",
-          "clientToken": "3c7568939d08b785b0e6d53fcdb2c981",
-          "displayName": "MiNotes"
+        "android": {
+          "useLegacyPackaging": true
         }
-      ],
-      "expo-secure-store"
+      }]
     ],
     "extra": {
       "router": {
         "origin": false
       },
       "eas": {
-        "projectId": "12d14cde-2cbb-4368-afe2-9c795783145e"
+        "projectId": "d85f84a1-7da2-4f99-afa2-fd73ea850a67"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/d85f84a1-7da2-4f99-afa2-fd73ea850a67"
     }
   }
 }
