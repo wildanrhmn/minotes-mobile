@@ -4,15 +4,16 @@ import {
   Text,
   PanResponder,
   TouchableOpacity,
-  RefreshControl,
   ActivityIndicator,
 } from "react-native";
+
 import { Image } from "expo-image";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { icons } from "../../constants/index";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { getNotes } from "../../lib/data";
 import { auth } from "../../lib/firebase";
+
 import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
@@ -26,7 +27,6 @@ import NotesCard from "../../components/NotesCard";
 import Search from "../../components/Search";
 import EmptyNotes from "../../components/EmptyNotes";
 const Page = () => {
-  const [search, setSearch] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const { session, signOut } = useGlobalContext();
   const scrollPosition = useSharedValue(0);
@@ -61,22 +61,30 @@ const Page = () => {
         scrollPosition.value <= 0 && gestureState.dy >= 0,
       onPanResponderMove: (event, gestureState) => {
         const maxDistance = 50;
-        pullDownPosition.value = Math.max(
-          Math.min(maxDistance, gestureState.dy)
-        );
+        const isScrollAtTop = scrollPosition.value <= 0;
+        const isSwipeDown = gestureState.dy >= 0;
 
-        if (
-          pullDownPosition.value >= maxDistance / 2 &&
-          isReadytoRefresh.value === false
-        ) {
-          isReadytoRefresh.value = true;
-        }
+        if (isScrollAtTop && isSwipeDown) {
+          pullDownPosition.value = Math.max(
+            Math.min(maxDistance, gestureState.dy)
+          );
 
-        if (
-          pullDownPosition.value < maxDistance / 2 &&
-          isReadytoRefresh.value === true
-        ) {
-          isReadytoRefresh.value = false;
+          if (
+            pullDownPosition.value >= maxDistance / 2 &&
+            isReadytoRefresh.value === false
+          ) {
+            isReadytoRefresh.value = true;
+          }
+
+          if (
+            pullDownPosition.value < maxDistance / 2 &&
+            isReadytoRefresh.value === true
+          ) {
+            isReadytoRefresh.value = false;
+          }
+        } else {
+          // Prevent moving the content up
+          pullDownPosition.value = 0;
         }
       },
       onPanResponderRelease: (event, gestureState) => {
@@ -115,71 +123,72 @@ const Page = () => {
     };
   });
 
-
-  const handleSearch = (value) => {
-    setSearch(value);
-  };
-
   return (
     <SafeAreaView
       pointerEvents={refreshing ? "none" : "auto"}
       className="bg-primary h-full"
       {...panResponderRef.current.panHandlers}
     >
-      <View className="px-4">
-        <View className="flex-row justify-between items-center my-6">
-          <Text className="text-md text-gray-300 font-pregular">
-            Welcome back,{" "}
-            <Text className="text-secondary">{session?.username}</Text>
-          </Text>
-
-          <TouchableOpacity activeOpacity={0.8} onPress={() => signOut()}>
-            <Image
-              source={icons.logout}
-              className="w-4 h-4"
-              contentFit="contain"
-            />
-          </TouchableOpacity>
-        </View>
-
-        <Search value={search} onChange={handleSearch} />
-      </View>
-
-    <Animated.View style={[refreshContainerStyles]} className="flex items-center translate-y-6">
-        <ActivityIndicator size="large" color="#F0DB4F" animating={isReadytoRefresh.value} />
+      <Animated.View
+        style={[refreshContainerStyles]}
+        className="flex items-center translate-y-6"
+      >
+        <ActivityIndicator
+          size="large"
+          color="#F0DB4F"
+          animating={isReadytoRefresh.value}
+        />
       </Animated.View>
-        <Animated.View className="px-4" style={pullDownStyles}>
-          <Animated.FlatList
-            data={notes}
-            onScroll={scrollHandler}
-            scrollEventThrottle={16}
-            numColumns={2}
-            keyExtractor={(item) => item.id}
-            columnWrapperStyle={{
-              justifyContent: "space-around",
-              flex: 1,
-              gap: 10,
-            }}
-            ListHeaderComponent={() => (
-                <View className="space-x-3 my-6 flex flex-row">
-                  <TouchableOpacity className="w-10 h-10 bg-[#171717] rounded-xl items-center justify-center">
-                    <Text className="text-[#909090] text-sm">All</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity className="w-14 h-10 bg-[#171717] rounded-xl items-center justify-center">
-                    <Image
-                      source={icons.folder}
-                      className="w-5 h-5"
-                      contentFit="contain"
-                    />
-                  </TouchableOpacity>
-                </View>
-            )}
-            renderItem={({ item }) => (
-              <NotesCard note={item.note} createdAt={item.createdAt} />
-            )}
-            ListEmptyComponent={<EmptyNotes />}
-          />
-        </Animated.View>
+      <Animated.View className="px-4" style={pullDownStyles}>
+        <Animated.FlatList
+          data={notes}
+          onScroll={scrollHandler}
+          scrollEventThrottle={16}
+          numColumns={2}
+          keyExtractor={(item) => item.id}
+          columnWrapperStyle={{
+            justifyContent: "space-around",
+            flex: 1,
+            gap: 10,
+          }}
+          ListHeaderComponent={() => (
+            <>
+              <View className="flex-row justify-between items-center my-6">
+                <Text className="text-md text-gray-300 font-pregular">
+                  Welcome back,{" "}
+                  <Text className="text-secondary">{session?.username}</Text>
+                </Text>
+
+                <TouchableOpacity activeOpacity={0.8} onPress={() => signOut()}>
+                  <Image
+                    source={icons.logout}
+                    className="w-4 h-4"
+                    contentFit="contain"
+                  />
+                </TouchableOpacity>
+              </View>
+
+              <Search />
+              <View className="space-x-3 my-6 flex flex-row">
+                <TouchableOpacity className="w-10 h-10 bg-[#171717] rounded-xl items-center justify-center">
+                  <Text className="text-[#909090] text-sm">All</Text>
+                </TouchableOpacity>
+                <TouchableOpacity className="w-14 h-10 bg-[#171717] rounded-xl items-center justify-center">
+                  <Image
+                    source={icons.folder}
+                    className="w-5 h-5"
+                    contentFit="contain"
+                  />
+                </TouchableOpacity>
+              </View>
+            </>
+          )}
+          renderItem={({ item }) => (
+            <NotesCard note={item.note} createdAt={item.createdAt} />
+          )}
+          ListEmptyComponent={<EmptyNotes />}
+        />
+      </Animated.View>
       <AddButton />
     </SafeAreaView>
   );

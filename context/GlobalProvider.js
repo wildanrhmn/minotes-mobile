@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { useStorageState } from "../lib/useStorageState";
 import { socialLogout } from "../lib/action";
+import { router } from "expo-router";
 
 const GlobalContext = createContext();
 export const useGlobalContext = () => {
@@ -25,7 +26,7 @@ export const GlobalProvider = ({ children }) => {
         setSession,
         loadingGlobal,
         setLoadingGlobal,
-        signOut: () => {
+        signOut: async () => {
           setLoadingGlobal(true);
           try{
             setSession(null);
@@ -34,6 +35,7 @@ export const GlobalProvider = ({ children }) => {
             console.log(error);
           } finally {
             setLoadingGlobal(false);
+            router.replace('/');
           }
         }
       }}
