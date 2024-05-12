@@ -13,8 +13,8 @@ export default ({ config }) => {
         [
             "react-native-fbsdk-next",
             {
-              appID: FBSDK_APP_ID,
-              clientToken: FBSDK_CLIENT_TOKEN,
+              appID: FBSDK_APP_ID || "YOUR_APP_ID",
+              clientToken: FBSDK_CLIENT_TOKEN || "YOUR_CLIENT_TOKEN",
               displayName: "MiNotes"
             }
           ],
