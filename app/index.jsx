@@ -1,18 +1,17 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView } from "react-native";
+import { Image } from "expo-image";
 import { StatusBar } from "expo-status-bar";
 import { images } from "../constants";
 
 import CustomButtom from "../components/CustomButton";
-import Loader from "../components/Loader";
 
 import { useGlobalContext } from "../context/GlobalProvider";
 import { router, Redirect } from "expo-router";
 export default function Page() {
   const { session, isLoading } = useGlobalContext();
 
-  if (isLoading) return <Loader isLoading={isLoading} />;
-  if (session)
+  if (session && !isLoading)
     return (
       <View className="bg-primary flex-1">
         <Redirect href="/home" />
@@ -30,13 +29,13 @@ export default function Page() {
           <Image
             source={images.notes}
             className="w-[130px] h-[80px]"
-            resizeMode="contain"
+            contentFit="contain"
           />
 
           <Image
             source={images.index}
             className="w-[400px] h-[300px]"
-            resizeMode="contain"
+            contentFit="contain"
           />
 
           <Text className="text-white text-4xl font-pbold">

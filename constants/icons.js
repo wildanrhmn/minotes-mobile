@@ -6,6 +6,8 @@ import folder from '../assets/icons/folder.png';
 import search from '../assets/icons/search.png';
 import back from '../assets/icons/back.png';
 import logout from '../assets/icons/logout.png';
+import close from '../assets/icons/close.png';
+import refresh from '../assets/icons/refresh.png';
 
 export default {
     plus,
@@ -15,5 +17,7 @@ export default {
     folder,
     search,
     back,
-    logout
+    logout,
+    close,
+    refresh,
 }

@@ -1,4 +1,5 @@
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
+import { Image } from "expo-image";
 import { images } from "../constants";
 const EmptyNotes = () => {
   return (
@@ -6,7 +7,7 @@ const EmptyNotes = () => {
         <Image
             source={images.stickynotes}
             className="w-[100px] h-[100px]"
-            resizeMode="contain"
+            contentFit="contain"
         />
 
         <Text className="text-sm text-[#909090] font-pregular mt-2">Oppss! You don't have any notes yet</Text>

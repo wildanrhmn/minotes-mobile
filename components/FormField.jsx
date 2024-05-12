@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { Image } from "expo-image";
 import { Controller } from "react-hook-form";
 import icons from "../constants/icons";
 
@@ -45,7 +46,7 @@ const FormField = ({
                   <Image
                     source={!showPassword ? icons.hide : icons.show}
                     className="w-6 h-6"
-                    resizeMode="contain"
+                    contentFit="contain"
                   />
                 </TouchableOpacity>
               )}

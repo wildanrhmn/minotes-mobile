@@ -1,4 +1,5 @@
-import { Text, View, Image } from "react-native";
+import { Text, View } from "react-native";
+import { Image } from "expo-image";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {
   onGoogleSignIn as googleSign,
@@ -73,7 +74,7 @@ const SocialAuthButton = () => {
         <Image
           source={images.facebook}
           className="w-6 h-6 absolute left-5"
-          resizeMode="contain"
+          contentFit="contain"
         />
 
         <Text className="text-white text-lg font-bold">
@@ -89,7 +90,7 @@ const SocialAuthButton = () => {
         <Image
           source={images.google}
           className="w-6 h-6 absolute left-5"
-          resizeMode="contain"
+          contentFit="contain"
         />
 
         <Text className="text-black text-lg font-bold">

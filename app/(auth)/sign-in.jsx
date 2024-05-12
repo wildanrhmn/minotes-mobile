@@ -1,7 +1,7 @@
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import { Image } from "expo-image";
 import images from "../../constants/images";
 import SocialAuthButton from "../../components/SocialAuthButton";
 
@@ -14,7 +14,7 @@ const Page = () => {
             <Image
               source={images.notes}
               className="w-[130px] h-[80px]"
-              resizeMode="contain"
+              contentFit="contain"
             />
 
             <Text className="text-white text-4xl font-pbold my-7">

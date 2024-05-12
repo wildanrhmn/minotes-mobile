@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Stack } from "expo-router";
 import { View } from "react-native";
 import { useFonts } from "expo-font";
-import { PaperProvider } from "react-native-paper";
 import { RootSiblingParent } from "react-native-root-siblings";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { GlobalProvider } from "../context/GlobalProvider";
@@ -44,7 +43,6 @@ const RootLayout = () => {
   return (
     <GlobalProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <PaperProvider>
           <RootSiblingParent>
             <View style={{ flex: 1, backgroundColor: "black" }}>
               <Stack>
@@ -54,7 +52,6 @@ const RootLayout = () => {
               </Stack>
             </View>
           </RootSiblingParent>
-        </PaperProvider>
       </GestureHandlerRootView>
     </GlobalProvider>
   );
