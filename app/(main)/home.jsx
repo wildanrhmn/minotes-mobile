@@ -126,23 +126,26 @@ const Page = () => {
       className="bg-primary h-full"
       {...panResponderRef.current.panHandlers}
     >
-      <View className="flex-row justify-between items-center my-6 px-4">
-        <Text className="text-md text-gray-300 font-pregular">
-          Welcome back,{" "}
-          <Text className="text-secondary">{session?.username}</Text>
-        </Text>
+      <View className="px-4">
+        <View className="flex-row justify-between items-center my-6">
+          <Text className="text-md text-gray-300 font-pregular">
+            Welcome back,{" "}
+            <Text className="text-secondary">{session?.username}</Text>
+          </Text>
 
-        <TouchableOpacity activeOpacity={0.8} onPress={() => signOut()}>
-          <Image
-            source={icons.logout}
-            className="w-4 h-4"
-            contentFit="contain"
-          />
-        </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => signOut()}>
+            <Image
+              source={icons.logout}
+              className="w-4 h-4"
+              contentFit="contain"
+            />
+          </TouchableOpacity>
+        </View>
+
+        <Search value={search} onChange={handleSearch} />
       </View>
-    <View className="flex-1 bg-primary">
 
-    <Animated.View style={[refreshContainerStyles]} className="flex items-center justify-end">
+    <Animated.View style={[refreshContainerStyles]} className="flex items-center translate-y-6">
         <ActivityIndicator size="large" color="#F0DB4F" animating={isReadytoRefresh.value} />
       </Animated.View>
         <Animated.View className="px-4" style={pullDownStyles}>
@@ -158,9 +161,6 @@ const Page = () => {
               gap: 10,
             }}
             ListHeaderComponent={() => (
-              <View>
-                <Search value={search} onChange={handleSearch} />
-
                 <View className="space-x-3 my-6 flex flex-row">
                   <TouchableOpacity className="w-10 h-10 bg-[#171717] rounded-xl items-center justify-center">
                     <Text className="text-[#909090] text-sm">All</Text>
@@ -173,7 +173,6 @@ const Page = () => {
                     />
                   </TouchableOpacity>
                 </View>
-              </View>
             )}
             renderItem={({ item }) => (
               <NotesCard note={item.note} createdAt={item.createdAt} />
@@ -181,8 +180,6 @@ const Page = () => {
             ListEmptyComponent={<EmptyNotes />}
           />
         </Animated.View>
-    </View>
-
       <AddButton />
     </SafeAreaView>
   );
