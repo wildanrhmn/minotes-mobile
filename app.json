@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "notes-mobile-app",
-    "slug": "notes-mobile-app",
-    "scheme": "notes-mobile-app",
+    "name": "minotes",
+    "slug": "minotes",
+    "scheme": "minotes",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
